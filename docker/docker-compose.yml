@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  jobs-rss-service:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    image: hoyo-rss
+    command: -o /out/output.xml
+    volumes:
+      - ../out:/out
+    restart: 'no'
+
