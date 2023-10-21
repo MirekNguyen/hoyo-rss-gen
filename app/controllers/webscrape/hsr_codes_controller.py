@@ -1,16 +1,28 @@
-from app.models import HoyoCode, WebScrape
+from app.models import HoyoCode, WebScrape, FeedItem
 from datetime import datetime
 import re
 
 
-class WebScrapeController():
+class HsrCodesController():
     def __init__(self, url):
         self.webscrape = WebScrape(url)
         self.data = self.find_data()
     def find_data(self):
         try:
-            tbody = self.webscrape.soup.find("tbody")
+            tables = self.webscrape.soup.find_all("table")
             data = []
+            target_table = None
+            for table in tables:
+                # Find the previous sibling <h2> element of the table
+                title_element = table.find_previous_sibling("h2").find(id="All_Codes")
+                if title_element and title_element.get_text() == "All Codes":
+                    target_table = table
+                    break
+            if not target_table or not target_table.find("tbody"):
+                self.webscrape.trigger_error("Element 'table' not found.")
+                return
+
+            tbody = target_table.find("tbody")
             for row in tbody.find_all("tr"):
                 row_data = []
                 if "expired" not in row.text.lower():
@@ -23,7 +35,7 @@ class WebScrapeController():
                     if row_data:
                         data.append(row_data)
             if not data:
-                self.webscrape.trigger_error("Element 'tbody' not found.")
+                self.webscrape.trigger_error("Element 'table' not found.")
                 return []
             return self.__export_data(data)
         except:
@@ -47,8 +59,6 @@ class WebScrapeController():
                     expiration = datetime.strptime(date_string, "%B %d, %Y")
                 else:
                     expiration = datetime.now()
-                print(item[0])
-
                 code = HoyoCode(title, item[0], item[3], initialization, expiration)
                 codes.append(code)
             if not codes:
@@ -56,3 +66,30 @@ class WebScrapeController():
             return codes
         except:
             self.webscrape.trigger_error("Error parsing data")
+    def getFeedConfig(self):
+        items = []
+        sorted_data = sorted(self.data, key=lambda item: item.initiation)
+        for item in sorted_data:
+            description = (
+                "Title: "
+                + item.title
+                + "<br>"
+                + "Code: "
+                + item.code
+                + "<br>"
+                + "Description: "
+                + item.description
+                + "<br>"
+                + "Initiation: "
+                + item.initiation.strftime("%y-%m-%d")
+                + "<br>"
+                + "Expiration: "
+                + item.expiration.strftime("%y-%m-%d")
+            )
+            id = item.title
+            title = item.title
+            link = "https://hsr.hoyoverse.com/gift?code=" + item.code
+            pubDate = item.initiation
+            fe = FeedItem(id, title, link, description, pubDate)
+            items.append(fe)
+        return items
