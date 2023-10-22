@@ -52,6 +52,8 @@ class GenshinVersionsController():
 
     def getFeedConfig(self):
         items = []
+        if not self.data:
+            return items
         sorted_data = sorted(self.data, key=lambda item: item.release_date)
         for item in sorted_data:
             description = (
