@@ -23,7 +23,7 @@ class HsrVersionsController:
             if not target_table:
                 self.webscrape.trigger_error("Error processing 'data'.")
                 return
-            tbody = target_table.find("tbodys")
+            tbody = target_table.find("tbody")
             for row in tbody.find_all("tr"):
                 row_data = []
                 for cell in row.find_all("td"):
@@ -46,7 +46,6 @@ class HsrVersionsController:
                 version = HoyoVersion(
                     item[1], item[0], datetime.strptime(item[2], "%Y-%m-%d")
                 )
-                print(vars(version))
                 versions.append(version)
             return versions
         except:

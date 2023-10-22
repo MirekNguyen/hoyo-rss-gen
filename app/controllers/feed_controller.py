@@ -16,6 +16,8 @@ class FeedController:
         )
         if has_error:
             self.__buildErrorFeed(config, error_message, output_file, feed)
+            print(error_message)
+            exit(1)
         else:
             self.__buildFeed(config, feedConfig, output_file, feed)
 
