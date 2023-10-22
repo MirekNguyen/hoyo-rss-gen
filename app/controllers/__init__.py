@@ -3,3 +3,4 @@ from .feed_controller import FeedController
 from .webscrape.genshin_codes_controller import GenshinCodesController
 from .webscrape.hsr_codes_controller import HsrCodesController
 from .webscrape.genshin_versions_controller import GenshinVersionsController
+from .webscrape.hsr_versions_controller import HsrVersionsController

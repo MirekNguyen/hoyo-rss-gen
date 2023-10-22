@@ -2,7 +2,8 @@
     "routes": {
       "genshin_codes_url": "https://genshin-impact.fandom.com/wiki/Promotional_Code",
       "hsr_codes_url": "https://honkai-star-rail.fandom.com/wiki/Redemption_Code",
-      "genshin_versions_url": "https://genshin-impact.fandom.com/wiki/Version"
+      "genshin_versions_url": "https://genshin-impact.fandom.com/wiki/Version",
+      "hsr_versions_url": "https://honkai-star-rail.fandom.com/wiki/Version"
     },
     "genshin_codes_url": "https://genshin-impact.fandom.com/wiki/Promotional_Code",
     "hsr_codes_url": "https://honkai-star-rail.fandom.com/wiki/Redemption_Code",
