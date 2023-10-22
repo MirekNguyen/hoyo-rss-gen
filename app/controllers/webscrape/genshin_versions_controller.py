@@ -1,12 +1,14 @@
-from app.models import HoyoVersion, WebScrape, FeedItem
-from datetime import datetime
 import re
+from datetime import datetime
+
+from app.models import FeedItem, HoyoVersion, WebScrape
 
 
-class GenshinVersionsController():
+class GenshinVersionsController:
     def __init__(self, url):
         self.webscrape = WebScrape(url)
         self.data = self.find_data()
+
     def find_data(self):
         try:
             tables = self.webscrape.soup.find_all("table")
@@ -15,9 +17,9 @@ class GenshinVersionsController():
             for table in tables:
                 # Find the previous sibling <h3> element of the table
                 prev = table.find_previous_sibling("h3")
-                if (prev != None):
+                if prev != None:
                     title_element = prev.findAll(id=re.compile(r"Version_\d+"))
-                    if (title_element):
+                    if title_element:
                         target_tables.append(table)
             for target_table in target_tables:
                 if not target_table or not target_table.find("tbody"):
@@ -42,9 +44,11 @@ class GenshinVersionsController():
         try:
             versions = []
             for item in data:
-                if (item[2] == "TBA"):
+                if item[2] == "TBA":
                     continue
-                version = HoyoVersion(item[1], item[0], datetime.strptime(item[2], "%B %d, %Y"))
+                version = HoyoVersion(
+                    item[1], item[0], datetime.strptime(item[2], "%B %d, %Y")
+                )
                 versions.append(version)
             return versions
         except:
@@ -57,10 +61,10 @@ class GenshinVersionsController():
         sorted_data = sorted(self.data, key=lambda item: item.release_date)
         for item in sorted_data:
             description = (
-                "Title: " 
+                "Title: "
                 + item.title
-                + "<br>" 
-                + "Version: " 
+                + "<br>"
+                + "Version: "
                 + item.version
                 + "<br>"
                 + "Release date: "

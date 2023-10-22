@@ -1,12 +1,14 @@
-from app.models import HoyoCode, WebScrape, FeedItem
-from datetime import datetime
 import re
+from datetime import datetime
+
+from app.models import FeedItem, HoyoCode, WebScrape
 
 
-class GenshinCodesController():
+class GenshinCodesController:
     def __init__(self, url):
         self.webscrape = WebScrape(url)
         self.data = self.find_data()
+
     def find_data(self):
         try:
             tbody = self.webscrape.soup.find("tbody")
@@ -29,6 +31,7 @@ class GenshinCodesController():
         except:
             self.webscrape.trigger_error("Element 'tbody' not found.")
             return
+
     def __export_data(self, data):
         try:
             codes = []
@@ -54,6 +57,7 @@ class GenshinCodesController():
             return codes
         except:
             self.webscrape.trigger_error("Error parsing data")
+
     def getFeedConfig(self):
         items = []
         if not self.data:

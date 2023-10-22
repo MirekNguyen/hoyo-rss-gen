@@ -3,5 +3,5 @@ class FeedItem:
         self.id = id
         self.title = title
         self.link = link
-        self.description  = description
+        self.description = description
         self.pubDate = pubDate

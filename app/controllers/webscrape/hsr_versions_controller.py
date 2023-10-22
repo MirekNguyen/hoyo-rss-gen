@@ -1,12 +1,13 @@
-from app.models import HoyoVersion, WebScrape, FeedItem
 from datetime import datetime
-import re
+
+from app.models import FeedItem, HoyoVersion, WebScrape
 
 
-class HsrVersionsController():
+class HsrVersionsController:
     def __init__(self, url):
         self.webscrape = WebScrape(url)
         self.data = self.find_data()
+
     def find_data(self):
         try:
             tables = self.webscrape.soup.find_all("table")
@@ -42,7 +43,9 @@ class HsrVersionsController():
         try:
             versions = []
             for item in data:
-                version = HoyoVersion(item[1], item[0], datetime.strptime(item[2], "%Y-%m-%d"))
+                version = HoyoVersion(
+                    item[1], item[0], datetime.strptime(item[2], "%Y-%m-%d")
+                )
                 print(vars(version))
                 versions.append(version)
             return versions
@@ -56,10 +59,10 @@ class HsrVersionsController():
         sorted_data = sorted(self.data, key=lambda item: item.release_date)
         for item in sorted_data:
             description = (
-                "Title: " 
+                "Title: "
                 + item.title
-                + "<br>" 
-                + "Version: " 
+                + "<br>"
+                + "Version: "
                 + item.version
                 + "<br>"
                 + "Release date: "
@@ -72,4 +75,3 @@ class HsrVersionsController():
             fe = FeedItem(id, title, link, description, release_date)
             items.append(fe)
         return items
-

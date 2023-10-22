@@ -1,12 +1,14 @@
-from app.models import HoyoCode, WebScrape, FeedItem
-from datetime import datetime
 import re
+from datetime import datetime
+
+from app.models import FeedItem, HoyoCode, WebScrape
 
 
-class HsrCodesController():
+class HsrCodesController:
     def __init__(self, url):
         self.webscrape = WebScrape(url)
         self.data = self.find_data()
+
     def find_data(self):
         try:
             tables = self.webscrape.soup.find_all("table")
@@ -41,6 +43,7 @@ class HsrCodesController():
         except:
             self.webscrape.trigger_error("Element 'tbody' not found.")
             return
+
     def __export_data(self, data):
         try:
             codes = []
@@ -66,6 +69,7 @@ class HsrCodesController():
             return codes
         except:
             self.webscrape.trigger_error("Error parsing data")
+
     def getFeedConfig(self):
         items = []
         if not self.data:

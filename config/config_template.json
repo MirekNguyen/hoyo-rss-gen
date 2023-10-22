@@ -1,17 +1,17 @@
 {
-    "routes": {
-      "genshin_codes_url": "https://genshin-impact.fandom.com/wiki/Promotional_Code",
-      "hsr_codes_url": "https://honkai-star-rail.fandom.com/wiki/Redemption_Code",
-      "genshin_versions_url": "https://genshin-impact.fandom.com/wiki/Version",
-      "hsr_versions_url": "https://honkai-star-rail.fandom.com/wiki/Version"
-    },
+  "routes": {
     "genshin_codes_url": "https://genshin-impact.fandom.com/wiki/Promotional_Code",
     "hsr_codes_url": "https://honkai-star-rail.fandom.com/wiki/Redemption_Code",
     "genshin_versions_url": "https://genshin-impact.fandom.com/wiki/Version",
-    "timezone": "Europe/Prague",
-    "locale": "cs_CZ.UTF-8",
-    "feed_id": "https://genshin-impact.fandom.com/wiki/Promotional_Code",
-    "feed_title": "Hoyo RSS",
-    "feed_subtitle": "Hoyo RSS",
-    "feed_link_href": "https://genshin-impact.fandom.com/wiki/Promotional_Code"
+    "hsr_versions_url": "https://honkai-star-rail.fandom.com/wiki/Version"
+  },
+  "genshin_codes_url": "https://genshin-impact.fandom.com/wiki/Promotional_Code",
+  "hsr_codes_url": "https://honkai-star-rail.fandom.com/wiki/Redemption_Code",
+  "genshin_versions_url": "https://genshin-impact.fandom.com/wiki/Version",
+  "timezone": "Europe/Prague",
+  "locale": "cs_CZ.UTF-8",
+  "feed_id": "https://genshin-impact.fandom.com/wiki/Promotional_Code",
+  "feed_title": "Hoyo RSS",
+  "feed_subtitle": "Hoyo RSS",
+  "feed_link_href": "https://genshin-impact.fandom.com/wiki/Promotional_Code"
 }
